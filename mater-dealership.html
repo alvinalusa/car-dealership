@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mater Dealership | Premium Vehicles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── TOKENS ─────────────────────────────────────── */
+:root{
+  --red:#C0392B; --red-d:#9B2335; --red-l:#E74C3C;
+  --black:#080808; --dark:#111; --dark2:#181818; --dark3:#222;
+  --white:#F8F6F2; --offwhite:#EDE9E2;
+  --gray:#888; --gray-l:#aaa;
+  --border:rgba(192,57,43,0.2); --border-dim:rgba(255,255,255,0.08);
+  --gold:#C9A84C;
+  --font-display:'Cormorant Garamond',serif;
+  --font-body:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);min-height:100vh;}
+
+/* ── PAGE SYSTEM ─────────────────────────────────── */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* ── NAV ─────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 6%;height:68px;
+  background:rgba(8,8,8,0.97);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer;}
+.brand-icon{width:38px;height:38px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#fff;font-family:var(--font-display);letter-spacing:-1px;flex-shrink:0;}
+.brand-text{line-height:1.1;}
+.brand-name{font-family:var(--font-display);font-size:1.25rem;font-weight:700;letter-spacing:1px;color:var(--white);}
+.brand-tagline{font-size:0.58rem;letter-spacing:4px;text-transform:uppercase;color:var(--gray);}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links li a{
+  display:block;padding:0 18px;height:68px;line-height:68px;
+  color:var(--gray-l);text-decoration:none;font-size:0.78rem;
+  letter-spacing:1.5px;text-transform:uppercase;
+  border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s;
+}
+.nav-links li a:hover,.nav-links li a.active{color:var(--white);border-bottom-color:var(--red);}
+.nav-cta{
+  background:var(--red);color:#fff!important;
+  padding:0 22px!important;border-bottom:none!important;
+  border-radius:2px;margin-left:8px;
+  transition:background 0.2s!important;
+}
+.nav-cta:hover{background:var(--red-l)!important;color:#fff!important;}
+@media(max-width:680px){.nav-links{display:none;}.brand-tagline{display:none;}}
+
+/* ── HERO (HOME) ─────────────────────────────────── */
+.hero{
+  height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  background:#080808;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1800&q=85') center/cover no-repeat;
+  opacity:.13;
+}
+.hero-stripe{
+  position:absolute;left:0;top:0;bottom:0;width:5px;
+  background:linear-gradient(to bottom,transparent,var(--red),transparent);
+}
+.hero-content{position:relative;z-index:1;padding:0 6%;max-width:720px;}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(192,57,43,0.12);border:1px solid var(--border);
+  padding:6px 16px;border-radius:20px;margin-bottom:28px;
+}
+.hero-pill-dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.hero-pill span{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--red);}
+.hero h1{
+  font-family:var(--font-display);font-size:clamp(3rem,7vw,5.8rem);
+  line-height:1.0;font-weight:700;margin-bottom:22px;
+}
+.hero h1 em{color:var(--red);font-style:normal;display:block;}
+.hero p{font-size:1rem;color:var(--gray-l);max-width:460px;line-height:1.8;margin-bottom:36px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-red{background:var(--red);color:#fff;padding:14px 30px;font-size:0.82rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;border:none;cursor:pointer;border-radius:2px;transition:background 0.2s;font-family:var(--font-body);}
+.btn-red:hover{background:var(--red-l);}
+.btn-ghost{background:transparent;color:var(--white);padding:14px 30px;font-size:0.82rem;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border-dim);cursor:pointer;border-radius:2px;transition:border-color 0.2s,color 0.2s;font-family:var(--font-body);}
+.btn-ghost:hover{border-color:var(--red);color:var(--white);}
+.hero-scroll{
+  position:absolute;bottom:32px;left:6%;
+  display:flex;align-items:center;gap:10px;
+  font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gray);
+}
+.hero-scroll::before{content:'';width:40px;height:1px;background:var(--red);}
+
+/* ── STATS ───────────────────────────────────────── */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:var(--dark2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.stat-item{
+  padding:28px 20px;text-align:center;
+  border-right:1px solid var(--border);
+}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:var(--font-display);font-size:2.2rem;color:var(--red);font-weight:700;}
+.stat-lbl{font-size:0.65rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gray);margin-top:4px;}
+@media(max-width:600px){.stats{grid-template-columns:1fr 1fr;}.stat-item:nth-child(2){border-right:none;}.stat-item:nth-child(3){border-right:1px solid var(--border);}}
+
+/* ── SECTION BASE ────────────────────────────────── */
+.section{padding:90px 6%;}
+.section-eyebrow{font-size:0.62rem;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.section-title{font-family:var(--font-display);font-size:clamp(1.9rem,3.5vw,3rem);margin-bottom:10px;font-weight:700;}
+.section-sub{color:var(--gray);font-size:0.9rem;line-height:1.8;max-width:480px;margin-bottom:52px;}
+
+/* ── FILTERS ─────────────────────────────────────── */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px;}
+.fb{
+  background:transparent;border:1px solid var(--border-dim);
+  color:var(--gray);padding:7px 18px;font-size:0.72rem;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  border-radius:2px;transition:all 0.2s;font-family:var(--font-body);
+}
+.fb.on,.fb:hover{border-color:var(--red);color:var(--red);background:rgba(192,57,43,0.08);}
+
+/* ── CAR GRID ────────────────────────────────────── */
+.car-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;}
+.card{
+  background:var(--dark2);border:1px solid var(--border-dim);
+  border-radius:3px;overflow:hidden;cursor:pointer;
+  transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;
+  display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-5px);border-color:var(--red);box-shadow:0 14px 44px rgba(192,57,43,0.18);}
+.card-img-wrap{position:relative;overflow:hidden;}
+.card-img{width:100%;height:200px;object-fit:cover;display:block;background:var(--dark3);transition:transform 0.4s;}
+.card:hover .card-img{transform:scale(1.04);}
+.card-badge{
+  position:absolute;top:12px;left:12px;
+  font-size:0.58rem;letter-spacing:1.5px;text-transform:uppercase;
+  padding:4px 10px;border-radius:1px;font-weight:600;
+}
+.badge-avail{background:rgba(39,174,96,0.9);color:#fff;}
+.badge-sold{background:rgba(192,57,43,0.9);color:#fff;}
+.badge-new{background:var(--gold);color:#000;}
+.card-body{padding:18px 18px 14px;flex:1;display:flex;flex-direction:column;}
+.card-origin{font-size:0.58rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.card-name{font-family:var(--font-display);font-size:1.2rem;font-weight:700;margin-bottom:2px;}
+.card-year{font-size:0.78rem;color:var(--gray);margin-bottom:12px;}
+.card-specs{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.cspec{font-size:0.7rem;color:var(--gray-l);display:flex;align-items:center;gap:4px;}
+.cspec-icon{color:var(--red);font-size:0.8rem;}
+.card-foot{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:14px;border-top:1px solid var(--border-dim);margin-top:auto;
+}
+.card-price{font-family:var(--font-display);font-size:1.2rem;color:var(--white);}
+.card-price small{font-family:var(--font-body);font-size:0.62rem;color:var(--gray);display:block;}
+.card-btn{
+  background:transparent;border:1px solid var(--border);
+  color:var(--gray-l);padding:6px 14px;font-size:0.67rem;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  border-radius:2px;transition:all 0.2s;font-family:var(--font-body);
+}
+.card-btn:hover{background:var(--red);border-color:var(--red);color:#fff;}
+
+/* ── FEATURES ────────────────────────────────────── */
+.features-bg{background:var(--dark);}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px;}
+.feat{
+  padding:26px 22px;background:var(--dark2);
+  border:1px solid var(--border-dim);border-radius:3px;
+  border-top:2px solid var(--red);
+}
+.feat-icon{font-size:1.8rem;margin-bottom:14px;}
+.feat h3{font-family:var(--font-display);font-size:1.05rem;font-weight:700;margin-bottom:8px;}
+.feat p{font-size:0.78rem;color:var(--gray);line-height:1.7;}
+
+/* ══════════════════════════════════════════════════
+   ABOUT PAGE
+══════════════════════════════════════════════════ */
+.about-hero{
+  min-height:50vh;display:flex;align-items:center;
+  background:var(--dark);border-bottom:1px solid var(--border);
+  padding:120px 6% 70px;position:relative;overflow:hidden;
+}
+.about-hero::after{
+  content:'MATER';position:absolute;right:-2%;top:50%;transform:translateY(-50%);
+  font-family:var(--font-display);font-size:clamp(6rem,15vw,14rem);
+  font-weight:700;color:rgba(192,57,43,0.05);line-height:1;pointer-events:none;
+  white-space:nowrap;
+}
+.about-hero-text h1{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;margin-bottom:16px;}
+.about-hero-text p{color:var(--gray-l);font-size:1rem;line-height:1.8;max-width:560px;}
+.about-story{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 6%;}
+@media(max-width:700px){.about-story{grid-template-columns:1fr;}}
+.about-img-wrap{border-radius:3px;overflow:hidden;border:1px solid var(--border);}
+.about-img{width:100%;height:380px;object-fit:cover;display:block;}
+.about-text .section-eyebrow{margin-bottom:10px;}
+.about-text h2{font-family:var(--font-display);font-size:2.2rem;font-weight:700;margin-bottom:16px;}
+.about-text p{color:var(--gray-l);font-size:0.88rem;line-height:1.9;margin-bottom:14px;}
+.about-vals{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
+.val{padding:16px;background:var(--dark2);border-left:3px solid var(--red);border-radius:2px;}
+.val strong{display:block;font-size:0.82rem;margin-bottom:4px;}
+.val span{font-size:0.75rem;color:var(--gray);}
+
+/* ══════════════════════════════════════════════════
+   CONTACT PAGE
+══════════════════════════════════════════════════ */
+.contact-hero{
+  padding:120px 6% 60px;background:var(--dark);
+  border-bottom:1px solid var(--border);
+}
+.contact-hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;margin-bottom:12px;}
+.contact-hero p{color:var(--gray-l);font-size:0.92rem;max-width:480px;line-height:1.8;}
+.contact-body{padding:70px 6%;display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:start;}
+@media(max-width:800px){.contact-body{grid-template-columns:1fr;}}
+.contact-info-col h3{font-family:var(--font-display);font-size:1.5rem;font-weight:700;margin-bottom:24px;}
+.c-item{display:flex;gap:14px;margin-bottom:22px;align-items:flex-start;}
+.c-icon{width:40px;height:40px;background:rgba(192,57,43,0.1);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;}
+.c-text strong{display:block;font-size:0.82rem;margin-bottom:3px;}
+.c-text span{font-size:0.8rem;color:var(--gray);line-height:1.6;}
+.branches{margin-top:36px;}
+.branches h4{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:16px;}
+.branch-item{
+  padding:14px 16px;background:var(--dark2);border:1px solid var(--border-dim);
+  border-radius:2px;margin-bottom:8px;
+  display:flex;align-items:center;gap:12px;font-size:0.82rem;
+}
+.branch-dot{width:8px;height:8px;background:var(--red);border-radius:50%;flex-shrink:0;}
+/* ENQUIRY FORM */
+.enquiry-form-wrap{background:var(--dark2);border:1px solid var(--border);border-radius:3px;padding:36px;}
+.enquiry-form-wrap h3{font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:6px;}
+.enquiry-form-wrap p{font-size:0.8rem;color:var(--gray);margin-bottom:26px;line-height:1.7;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:500px){.form-grid{grid-template-columns:1fr;}}
+.fg{display:flex;flex-direction:column;gap:6px;}
+.fg.full{grid-column:1/-1;}
+.fg label{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);}
+.fg input,.fg select,.fg textarea{
+  background:var(--dark3);border:1px solid var(--border-dim);
+  color:var(--white);padding:11px 14px;font-size:0.85rem;
+  border-radius:2px;font-family:var(--font-body);transition:border-color 0.2s;
+  resize:vertical;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--red);}
+.fg select option{background:var(--dark2);}
+
+/* ══════════════════════════════════════════════════
+   ADMIN PAGE
+══════════════════════════════════════════════════ */
+.admin-page{padding:100px 6% 60px;}
+.admin-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;flex-wrap:wrap;gap:14px;}
+.admin-topbar h1{font-family:var(--font-display);font-size:2rem;font-weight:700;}
+.admin-topbar h1 span{color:var(--red);}
+.admin-profile-chip{
+  display:flex;align-items:center;gap:10px;
+  background:var(--dark2);border:1px solid var(--border);
+  padding:10px 16px;border-radius:3px;
+}
+.admin-avatar{width:36px;height:36px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;color:#fff;font-family:var(--font-display);}
+.admin-profile-chip strong{font-size:0.85rem;display:block;}
+.admin-profile-chip span{font-size:0.7rem;color:var(--gray);}
+.admin-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:36px;overflow-x:auto;}
+.atab{
+  background:transparent;border:none;border-bottom:2px solid transparent;
+  color:var(--gray);padding:14px 24px;font-size:0.78rem;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  transition:all 0.2s;font-family:var(--font-body);white-space:nowrap;
+}
+.atab.on{color:var(--red);border-bottom-color:var(--red);}
+.atab:hover{color:var(--white);}
+.atab-panel{display:none;}
+.atab-panel.on{display:block;}
+/* INBOX */
+.inbox-empty{padding:40px;text-align:center;color:var(--gray);border:1px dashed var(--border);border-radius:3px;}
+.msg-card{
+  background:var(--dark2);border:1px solid var(--border-dim);
+  border-radius:3px;padding:20px 22px;margin-bottom:12px;
+  border-left:3px solid var(--red);
+  display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;
+}
+.msg-card.unread{border-left-color:var(--gold);}
+.msg-info strong{display:block;font-size:0.9rem;margin-bottom:3px;}
+.msg-info .msg-meta{font-size:0.72rem;color:var(--gray);margin-bottom:8px;}
+.msg-info .msg-body{font-size:0.82rem;color:var(--gray-l);line-height:1.6;}
+.msg-car{display:inline-block;font-size:0.65rem;letter-spacing:1.5px;background:rgba(192,57,43,0.12);border:1px solid var(--border);color:var(--red);padding:3px 10px;border-radius:1px;margin-top:6px;}
+.msg-actions{display:flex;gap:8px;flex-shrink:0;}
+.btn-sm{background:transparent;border:1px solid var(--border-dim);color:var(--gray);padding:5px 12px;font-size:0.67rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.2s;font-family:var(--font-body);}
+.btn-sm:hover{border-color:var(--red);color:var(--red);}
+.btn-sm-del:hover{border-color:#c0392b;color:#c0392b;}
+.inbox-count{display:inline-block;background:var(--red);color:#fff;font-size:0.6rem;padding:2px 7px;border-radius:10px;margin-left:8px;vertical-align:middle;}
+/* ADD VEHICLE */
+.add-form{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:760px;}
+.add-form .full{grid-column:1/-1;}
+.form-success{background:rgba(39,174,96,0.12);border:1px solid rgba(39,174,96,0.4);color:#27ae60;padding:12px 16px;border-radius:2px;font-size:0.82rem;display:none;margin-bottom:16px;}
+/* MANAGE */
+.manage-row{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;background:var(--dark2);
+  border:1px solid var(--border-dim);border-radius:2px;margin-bottom:8px;
+}
+.manage-row img{width:74px;height:50px;object-fit:cover;border-radius:2px;flex-shrink:0;}
+.manage-info{flex:1;}
+.manage-info strong{display:block;font-size:0.88rem;margin-bottom:2px;}
+.manage-info span{font-size:0.72rem;color:var(--gray);}
+.manage-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;}
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer{
+  background:var(--dark);border-top:1px solid var(--border);
+  padding:52px 6% 24px;
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;margin-bottom:40px;
+}
+@media(max-width:700px){.footer-top{grid-template-columns:1fr;}}
+.footer-brand-name{font-family:var(--font-display);font-size:1.5rem;font-weight:700;margin-bottom:10px;}
+.footer-brand-name span{color:var(--red);}
+.footer-desc{font-size:0.8rem;color:var(--gray);line-height:1.8;max-width:300px;}
+.footer-col h4{font-size:0.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:16px;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:10px;}
+.footer-col ul li a{color:var(--gray);text-decoration:none;font-size:0.8rem;transition:color 0.2s;cursor:pointer;}
+.footer-col ul li a:hover{color:var(--white);}
+.footer-bot{
+  border-top:1px solid var(--border);padding-top:20px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+}
+.footer-bot p{font-size:0.72rem;color:var(--gray);}
+
+/* ── CAR MODAL ───────────────────────────────────── */
+#modal-wrap{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.88);z-index:500;
+  align-items:center;justify-content:center;padding:20px;
+  backdrop-filter:blur(6px);
+}
+#modal-wrap.open{display:flex;}
+.modal-box{
+  background:var(--dark);border:1px solid var(--border);
+  border-radius:3px;width:100%;max-width:720px;max-height:90vh;
+  overflow-y:auto;position:relative;
+}
+.modal-img{width:100%;height:260px;object-fit:cover;display:block;}
+.modal-body{padding:28px 30px;}
+.modal-body .section-eyebrow{margin-bottom:8px;}
+.modal-name{font-family:var(--font-display);font-size:2rem;font-weight:700;margin-bottom:4px;}
+.modal-meta{font-size:0.82rem;color:var(--gray);margin-bottom:14px;}
+.modal-price{font-family:var(--font-display);font-size:1.6rem;color:var(--red);margin-bottom:22px;}
+.modal-specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
+@media(max-width:500px){.modal-specs-grid{grid-template-columns:1fr 1fr;}}
+.mspec{background:var(--dark2);padding:11px 14px;border-radius:2px;border:1px solid var(--border-dim);}
+.mspec-lbl{font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-bottom:3px;}
+.mspec-val{font-size:0.85rem;font-weight:500;}
+.modal-desc{font-size:0.85rem;color:var(--gray-l);line-height:1.9;margin-bottom:22px;}
+.modal-close{position:absolute;top:14px;right:14px;background:rgba(8,8,8,0.75);border:1px solid var(--border-dim);color:var(--white);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem;z-index:10;transition:background 0.2s;}
+.modal-close:hover{background:var(--red);}
+
+/* ── TOAST ───────────────────────────────────────── */
+#toast{
+  position:fixed;bottom:28px;right:28px;
+  background:var(--dark2);border:1px solid var(--border);
+  color:var(--white);padding:13px 22px;
+  border-radius:3px;font-size:0.82rem;
+  z-index:1000;display:none;
+  box-shadow:0 4px 24px rgba(0,0,0,0.5);
+  border-left:3px solid var(--red);
+}
+
+/* ── REVEAL ──────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(18px);transition:opacity 0.55s,transform 0.55s;}
+.rv.in{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav>
+  <div class="brand" onclick="goPage('home')">
+    <div class="brand-icon">M</div>
+    <div class="brand-text">
+      <div class="brand-name">MATER</div>
+      <div class="brand-tagline">Dealership · Est. 1989</div>
+    </div>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#" onclick="goPage('home')" id="nl-home" class="active">Home</a></li>
+    <li><a href="#" onclick="goPage('about')" id="nl-about">About</a></li>
+    <li><a href="#" onclick="goPage('contact')" id="nl-contact">Contact</a></li>
+    <li><a href="#" onclick="goPage('contact');scrollToForm()" id="nl-enquire" class="nav-cta">Enquire Now</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-stripe"></div>
+    <div class="hero-content">
+      <div class="hero-pill"><div class="hero-pill-dot"></div><span>Premium Vehicles · Est. 1989</span></div>
+      <h1>Drive on<br><em>Your Terms.</em></h1>
+      <p>New &amp; used vehicles imported from Japan &amp; UK. Serving East Africa with prestige, trust, and unmatched variety.</p>
+      <div class="hero-btns">
+        <button class="btn-red" onclick="document.getElementById('inventory').scrollIntoView({behavior:'smooth'})">Browse Inventory</button>
+        <button class="btn-ghost" onclick="goPage('contact')">Get a Quote</button>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll to explore</div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats rv">
+    <div class="stat-item"><div class="stat-num">35+</div><div class="stat-lbl">Years Operating</div></div>
+    <div class="stat-item"><div class="stat-num">5K+</div><div class="stat-lbl">Vehicles Sold</div></div>
+    <div class="stat-item"><div class="stat-num">6</div><div class="stat-lbl">Locations</div></div>
+    <div class="stat-item"><div class="stat-num">100%</div><div class="stat-lbl">Verified Imports</div></div>
+  </div>
+
+  <!-- INVENTORY -->
+  <div class="section" id="inventory">
+    <div class="rv">
+      <div class="section-eyebrow">Our Fleet</div>
+      <h2 class="section-title">Current Inventory</h2>
+      <p class="section-sub">Handpicked imports from Japan &amp; UK, inspected to the highest standard before reaching our showroom.</p>
+    </div>
+    <div class="filter-bar rv">
+      <button class="fb on" onclick="filterCars('all',this)">All</button>
+      <button class="fb" onclick="filterCars('SUV',this)">SUV</button>
+      <button class="fb" onclick="filterCars('Sedan',this)">Sedan</button>
+      <button class="fb" onclick="filterCars('Truck',this)">Truck</button>
+      <button class="fb" onclick="filterCars('Luxury',this)">Luxury</button>
+    </div>
+    <div class="car-grid rv" id="car-grid"></div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section features-bg">
+    <div class="rv">
+      <div class="section-eyebrow">Why Choose Us</div>
+      <h2 class="section-title">Built on Trust</h2>
+      <p class="section-sub">Three decades of automotive excellence, repeat customers, and a reputation that speaks for itself.</p>
+    </div>
+    <div class="feat-grid rv">
+      <div class="feat"><div class="feat-icon">🚢</div><h3>Direct Imports</h3><p>Sourced directly from Japan &amp; UK auctions for authenticity and competitive pricing.</p></div>
+      <div class="feat"><div class="feat-icon">🔍</div><h3>Thorough Inspection</h3><p>Multi-point quality check on every unit before it reaches our showroom floor.</p></div>
+      <div class="feat"><div class="feat-icon">📄</div><h3>Clear Documentation</h3><p>Full import paperwork, duty receipts, and ownership history included with every vehicle.</p></div>
+      <div class="feat"><div class="feat-icon">🤝</div><h3>After-Sale Support</h3><p>Dedicated after-sale assistance, financing guidance, and trade-in services at all branches.</p></div>
+      <div class="feat"><div class="feat-icon">🌍</div><h3>6 Locations</h3><p>Mombasa, Nairobi, Kisumu, Dar es Salaam, Dubai &amp; more — we're always near you.</p></div>
+      <div class="feat"><div class="feat-icon">⭐</div><h3>Special Orders</h3><p>Bikes, trucks, jetskis, tractors &amp; ambulances — we handle what others won't.</p></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name"><span>MATER</span> Dealership</div>
+        <p class="footer-desc">Premium new &amp; used vehicles. Imported from Japan &amp; UK. Serving Kenya and East Africa since 1989.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a onclick="goPage('home')">Home</a></li>
+          <li><a onclick="goPage('about')">About Us</a></li>
+          <li><a onclick="goPage('contact')">Contact</a></li>
+          <li><a onclick="goPage('contact');scrollToForm()">Enquire Now</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Vehicle Types</h4>
+        <ul>
+          <li><a onclick="filterCars('SUV');goPage('home')">SUVs &amp; 4x4s</a></li>
+          <li><a onclick="filterCars('Sedan');goPage('home')">Sedans &amp; Saloons</a></li>
+          <li><a onclick="filterCars('Truck');goPage('home')">Pickup Trucks</a></li>
+          <li><a onclick="filterCars('Luxury');goPage('home')">Luxury Vehicles</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <p>© 2025 Mater Dealership Ltd. All rights reserved.</p>
+      <p style="color:var(--red);font-size:0.65rem;letter-spacing:2px;">PREMIUM AUTOMOTIVE EXCELLENCE</p>
+    </div>
+  </footer>
+</div><!-- /page-home -->
+
+<!-- ══════════════════════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="about-hero-text rv">
+      <div class="section-eyebrow">Our Story</div>
+      <h1>Three Decades of<br>Automotive Prestige</h1>
+      <p>From a single showroom in Mombasa to six locations across East Africa and Dubai — Mater Dealership has been synonymous with quality, trust, and the finest imported vehicles since 1989.</p>
+    </div>
+  </div>
+
+  <div class="about-story">
+    <div class="about-img-wrap rv">
+      <img class="about-img" src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=900&q=85" alt="Showroom" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&q=80'"/>
+    </div>
+    <div class="about-text rv">
+      <div class="section-eyebrow">Who We Are</div>
+      <h2>Kenya's Most Prestigious Dealership</h2>
+      <p>Mater Dealership was founded in 1989 with a simple mission: bring the world's best vehicles to the roads of East Africa at honest prices. We import directly from Japan and the United Kingdom, ensuring every vehicle meets strict quality standards before arriving at our showrooms.</p>
+      <p>We deal in brand new cars, quality used imports, commercial vehicles, buses, trucks, motorbikes, jetskis, and agricultural equipment. Whether you're looking for a reliable daily runner or a head-turning luxury SUV, Mater has it.</p>
+      <p>Our team of experienced advisors, logistics specialists, and certified mechanics work together so that every customer leaves with confidence in their purchase — and long after.</p>
+      <div class="about-vals">
+        <div class="val"><strong>Integrity</strong><span>Transparent pricing with no hidden costs</span></div>
+        <div class="val"><strong>Quality</strong><span>Every vehicle thoroughly vetted before sale</span></div>
+        <div class="val"><strong>Range</strong><span>From compact saloons to heavy commercial trucks</span></div>
+        <div class="val"><strong>Support</strong><span>After-sale service at all six branches</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section features-bg">
+    <div class="rv">
+      <div class="section-eyebrow">Our Reach</div>
+      <h2 class="section-title">Where You'll Find Us</h2>
+      <p class="section-sub">Six locations, one standard of excellence.</p>
+    </div>
+    <div class="feat-grid rv">
+      <div class="feat"><div class="feat-icon">🇰🇪</div><h3>Nairobi</h3><p>Malik Heights, Nairobi — our flagship Kenya capital branch for all vehicle categories.</p></div>
+      <div class="feat"><div class="feat-icon">🌊</div><h3>Mombasa</h3><p>Our original HQ since 1989. Full showroom, service centre, and import processing hub.</p></div>
+      <div class="feat"><div class="feat-icon">🏙</div><h3>Kisumu</h3><p>Serving western Kenya and the Lake Victoria region with the same Mater standard.</p></div>
+      <div class="feat"><div class="feat-icon">🇹🇿</div><h3>Dar es Salaam</h3><p>Tanzania's commercial capital, served by our dedicated cross-border team.</p></div>
+      <div class="feat"><div class="feat-icon">🇦🇪</div><h3>Dubai</h3><p>266 'C' Block, Dubai Auto Zone, Ras Al Khor — our international sourcing hub.</p></div>
+      <div class="feat"><div class="feat-icon">✈️</div><h3>Global Sourcing</h3><p>Direct partnerships with Japanese &amp; UK auction houses for the freshest stock.</p></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name"><span>MATER</span> Dealership</div>
+        <p class="footer-desc">Premium new &amp; used vehicles. Imported from Japan &amp; UK. Serving Kenya and East Africa since 1989.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a onclick="goPage('home')">Home</a></li>
+          <li><a onclick="goPage('about')">About Us</a></li>
+          <li><a onclick="goPage('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a>John Doe</a></li>
+          <li><a>0712 345 678</a></li>
+          <li><a>info@materdealership.co.ke</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <p>© 2025 Mater Dealership Ltd. All rights reserved.</p>
+      <p style="color:var(--red);font-size:0.65rem;letter-spacing:2px;">PREMIUM AUTOMOTIVE EXCELLENCE</p>
+    </div>
+  </footer>
+</div><!-- /page-about -->
+
+<!-- ══════════════════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact-hero">
+    <div class="rv">
+      <div class="section-eyebrow">Get In Touch</div>
+      <h1>We're Here<br>to Help You</h1>
+      <p>Send us an enquiry, visit a branch, or call directly. Our team responds within hours.</p>
+    </div>
+  </div>
+
+  <div class="contact-body">
+    <!-- LEFT: info -->
+    <div class="rv">
+      <div class="contact-info-col">
+        <h3>Contact Details</h3>
+        <div class="c-item">
+          <div class="c-icon">👤</div>
+          <div class="c-text"><strong>Primary Contact</strong><span>John Doe — Dealership Manager</span></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📞</div>
+          <div class="c-text"><strong>Phone / WhatsApp</strong><span>0712 345 678</span></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">✉️</div>
+          <div class="c-text"><strong>Email</strong><span>info@materdealership.co.ke</span></div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">⏰</div>
+          <div class="c-text"><strong>Business Hours</strong><span>Mon – Sat: 8am – 6pm<br>Sun: 10am – 3pm</span></div>
+        </div>
+      </div>
+
+      <div class="branches">
+        <h4>Our Locations</h4>
+        <div class="branch-item"><div class="branch-dot"></div>Nairobi — Malik Heights</div>
+        <div class="branch-item"><div class="branch-dot"></div>Mombasa — Main HQ (Est. 1989)</div>
+        <div class="branch-item"><div class="branch-dot"></div>Kisumu — Western Kenya Branch</div>
+        <div class="branch-item"><div class="branch-dot"></div>Dar es Salaam, Tanzania</div>
+        <div class="branch-item"><div class="branch-dot"></div>Dubai — Auto Zone, Ras Al Khor</div>
+        <div class="branch-item"><div class="branch-dot"></div>Global Sourcing (Japan &amp; UK)</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: form -->
+    <div class="enquiry-form-wrap rv" id="enquiry-form-anchor">
+      <h3>Send an Enquiry</h3>
+      <p>Fill in the form below and your message will be sent directly to our team. We'll get back to you promptly.</p>
+      <form onsubmit="sendEnquiry(event)">
+        <div class="form-grid">
+          <div class="fg"><label>Full Name</label><input type="text" id="eq-name" placeholder="Jane Wanjiru" required/></div>
+          <div class="fg"><label>Phone</label><input type="tel" id="eq-phone" placeholder="+254 700 000 000" required/></div>
+          <div class="fg full"><label>Email</label><input type="email" id="eq-email" placeholder="you@email.com"/></div>
+          <div class="fg full">
+            <label>Vehicle of Interest</label>
+            <select id="eq-car">
+              <option value="">— Select a vehicle (optional) —</option>
+            </select>
+          </div>
+          <div class="fg full"><label>Message</label><textarea id="eq-msg" rows="4" placeholder="Tell us what you're looking for, your budget, preferred colour…"></textarea></div>
+        </div>
+        <button class="btn-red" type="submit" style="width:100%;margin-top:16px;">Send Enquiry →</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name"><span>MATER</span> Dealership</div>
+        <p class="footer-desc">Premium new &amp; used vehicles. Imported from Japan &amp; UK. Serving Kenya and East Africa since 1989.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a onclick="goPage('home')">Home</a></li>
+          <li><a onclick="goPage('about')">About Us</a></li>
+          <li><a onclick="goPage('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Reach Us</h4>
+        <ul>
+          <li><a>John Doe</a></li>
+          <li><a>0712 345 678</a></li>
+          <li><a>info@materdealership.co.ke</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <p>© 2025 Mater Dealership Ltd. All rights reserved.</p>
+      <p style="color:var(--red);font-size:0.65rem;letter-spacing:2px;">PREMIUM AUTOMOTIVE EXCELLENCE</p>
+    </div>
+  </footer>
+</div><!-- /page-contact -->
+
+<!-- ══════════════════════════════════════════════
+     PAGE: ADMIN  (hidden — only via ?admin=mater2025)
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-admin">
+  <div id="admin-login-wall" style="display:flex;min-height:100vh;align-items:center;justify-content:center;padding:100px 6% 60px;">
+    <div style="background:var(--dark2);border:1px solid var(--border);border-radius:3px;padding:40px;max-width:380px;width:100%;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+        <div class="admin-avatar">J</div>
+        <div><strong style="font-size:1rem;">Admin Login</strong><br><span style="font-size:0.75rem;color:var(--gray);">Mater Dealership</span></div>
+      </div>
+      <div class="fg" style="margin-bottom:14px;"><label>Username</label><input type="text" id="al-user" placeholder="admin"/></div>
+      <div class="fg" style="margin-bottom:20px;"><label>Password</label><input type="password" id="al-pass" placeholder="••••••••"/></div>
+      <div id="al-err" style="display:none;color:#e74c3c;font-size:0.78rem;margin-bottom:12px;">❌ Wrong credentials.</div>
+      <button class="btn-red" onclick="doAdminLogin()" style="width:100%;">Login</button>
+      <p style="font-size:0.7rem;color:var(--gray);margin-top:16px;text-align:center;">Demo: <strong style="color:var(--red);">admin</strong> / <strong style="color:var(--red);">mater2025</strong></p>
+    </div>
+  </div>
+
+  <div id="admin-dashboard" style="display:none;" class="admin-page">
+    <div class="admin-topbar">
+      <h1>Admin <span>Dashboard</span></h1>
+      <div class="admin-profile-chip">
+        <div class="admin-avatar">J</div>
+        <div><strong>John Doe</strong><span>0712 345 678 · Manager</span></div>
+      </div>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="atab on" onclick="switchAdminTab('inbox',this)">📬 Enquiries <span class="inbox-count" id="inbox-badge">0</span></button>
+      <button class="atab" onclick="switchAdminTab('add',this)">➕ Add Vehicle</button>
+      <button class="atab" onclick="switchAdminTab('manage',this)">📋 Manage Inventory</button>
+    </div>
+
+    <!-- INBOX -->
+    <div class="atab-panel on" id="atab-inbox">
+      <div id="inbox-list"></div>
+    </div>
+
+    <!-- ADD VEHICLE -->
+    <div class="atab-panel" id="atab-add">
+      <div class="form-success" id="add-ok">✅ Vehicle added to inventory!</div>
+      <form class="add-form" onsubmit="addCar(event)">
+        <div class="fg"><label>Make &amp; Model</label><input type="text" id="af-name" placeholder="Toyota Land Cruiser" required/></div>
+        <div class="fg"><label>Year</label><input type="number" id="af-year" placeholder="2022" min="1990" max="2026" required/></div>
+        <div class="fg"><label>Price (KES)</label><input type="text" id="af-price" placeholder="6,500,000" required/></div>
+        <div class="fg"><label>Category</label>
+          <select id="af-cat"><option value="SUV">SUV</option><option value="Sedan">Sedan</option><option value="Truck">Truck</option><option value="Luxury">Luxury</option><option value="Bike">Bike</option></select>
+        </div>
+        <div class="fg"><label>Mileage</label><input type="text" id="af-mileage" placeholder="45,000 km"/></div>
+        <div class="fg"><label>Transmission</label>
+          <select id="af-trans"><option>Automatic</option><option>Manual</option></select>
+        </div>
+        <div class="fg"><label>Engine</label><input type="text" id="af-engine" placeholder="3.5L V6"/></div>
+        <div class="fg"><label>Colour</label><input type="text" id="af-color" placeholder="Pearl White"/></div>
+        <div class="fg full"><label>Image URL</label><input type="url" id="af-img" placeholder="https://images.unsplash.com/…"/></div>
+        <div class="fg full"><label>Description</label><textarea id="af-desc" rows="3" placeholder="Brief vehicle description…"></textarea></div>
+        <div class="fg"><label>Origin</label>
+          <select id="af-origin"><option>Japan Import</option><option>UK Import</option><option>Brand New</option><option>Local</option></select>
+        </div>
+        <div class="fg"><label>Status</label>
+          <select id="af-status"><option value="available">Available</option><option value="sold">Sold</option></select>
+        </div>
+        <div class="full"><button class="btn-red" type="submit">Add to Inventory</button></div>
+      </form>
+    </div>
+
+    <!-- MANAGE -->
+    <div class="atab-panel" id="atab-manage">
+      <div id="manage-list"></div>
+    </div>
+  </div>
+</div><!-- /page-admin -->
+
+<!-- ══════ CAR MODAL ══════ -->
+<div id="modal-wrap">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img id="m-img" class="modal-img" src="" alt=""/>
+    <div class="modal-body">
+      <div class="section-eyebrow" id="m-tag"></div>
+      <div class="modal-name" id="m-name"></div>
+      <div class="modal-meta" id="m-meta"></div>
+      <div class="modal-price" id="m-price"></div>
+      <div class="modal-specs-grid" id="m-specs"></div>
+      <div class="modal-desc" id="m-desc"></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn-red" onclick="goPage('contact');closeModal();scrollToForm()">Enquire About This Car</button>
+        <button class="btn-ghost" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ─── CAR DATA ────────────────────────────────────────────────────────────────
+let cars = [
+  {id:1,name:"Toyota Land Cruiser Prado",year:2020,price:"KES 8,500,000",
+   cat:"SUV",mileage:"42,000 km",trans:"Automatic",engine:"2.7L 4-Cylinder",
+   color:"Pearl White",origin:"Japan Import",status:"available",
+   img:"https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=900&q=80",
+   desc:"One of Kenya's most sought-after SUVs. Fully loaded with leather interior, sunroof, and factory rear entertainment. Clean Japanese import with full service history."},
+
+  {id:2,name:"Toyota Corolla Fielder",year:2019,price:"KES 2,100,000",
+   cat:"Sedan",mileage:"29,000 km",trans:"Automatic",engine:"1.5L 4-Cyl",
+   color:"Silver",origin:"Japan Import",status:"available",
+   img:"https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=900&q=80",
+   desc:"Kenya's top-selling wagon. Fuel-efficient, spacious, and incredibly reliable. Pristine condition, direct Japan import with low mileage."},
+
+  {id:3,name:"BMW X5 xDrive40i",year:2017,price:"KES 6,800,000",
+   cat:"Luxury",mileage:"67,000 km",trans:"Automatic",engine:"3.0L TwinPower Turbo",
+   color:"Midnight Black",origin:"UK Import",status:"available",
+   img:"https://images.unsplash.com/photo-1555215695-3004980ad54e?w=900&q=80",
+   desc:"The benchmark luxury SUV. Panoramic sunroof, Harman Kardon sound system, and full BMW service history. UK import, thoroughly inspected."},
+
+  {id:4,name:"Toyota Hilux Double Cab",year:2021,price:"KES 5,200,000",
+   cat:"Truck",mileage:"38,000 km",trans:"Manual",engine:"2.8L Diesel Turbo",
+   color:"Graphite Grey",origin:"Japan Import",status:"available",
+   img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80",
+   desc:"The indestructible workhorse of East Africa. Loaded with diff lock, 4WD, and tow package. Built for Kenyan roads and beyond."},
+
+  {id:5,name:"Mercedes-Benz C200 AMG Line",year:2018,price:"KES 4,900,000",
+   cat:"Luxury",mileage:"53,000 km",trans:"Automatic",engine:"2.0L Turbo",
+   color:"Obsidian Black",origin:"UK Import",status:"available",
+   img:"https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=900&q=80",
+   desc:"Effortless executive presence. MBUX infotainment, ambient lighting, and sport suspension. UK import in exceptional condition."},
+
+  {id:6,name:"Subaru Forester XT",year:2020,price:"KES 3,400,000",
+   cat:"SUV",mileage:"31,000 km",trans:"Automatic",engine:"2.0L Boxer Turbo",
+   color:"Crystal White",origin:"Japan Import",status:"available",
+   img:"https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=900&q=80",
+   desc:"AWD capability with turbo punch. Panoramic roof, EyeSight driver assist, and sport mode. Low mileage, enthusiast-owned."},
+
+  {id:7,name:"Porsche Cayenne S",year:2019,price:"KES 12,500,000",
+   cat:"Luxury",mileage:"48,000 km",trans:"Automatic",engine:"2.9L Twin-Turbo V6",
+   color:"Ice Grey Metallic",origin:"UK Import",status:"available",
+   img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80",
+   desc:"Redefine your drive. PDCC sport suspension, Bose surround sound, heated/ventilated leather seats. The ultimate fusion of performance and luxury."},
+
+  {id:8,name:"Toyota Passo G",year:2021,price:"KES 1,380,000",
+   cat:"Sedan",mileage:"14,000 km",trans:"Automatic",engine:"1.0L 3-Cyl",
+   color:"Red",origin:"Japan Import",status:"available",
+   img:"https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=80",
+   desc:"Perfect city companion. Compact, fuel-efficient, and easy to park. Excellent condition with very low mileage. Ideal first car."},
+
+  {id:9,name:"Nissan X-Trail",year:2020,price:"KES 3,800,000",
+   cat:"SUV",mileage:"35,000 km",trans:"Automatic",engine:"2.0L 4-Cyl",
+   color:"Burgundy",origin:"Japan Import",status:"available",
+   img:"https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80",
+   desc:"Practical family SUV with ProPilot driver assistance, panoramic sunroof, and 7-seat configuration. Immaculate Japan import at a great price."},
+
+  {id:10,name:"Land Rover Defender 110",year:2022,price:"KES 14,200,000",
+   cat:"Luxury",mileage:"22,000 km",trans:"Automatic",engine:"3.0L Ingenium",
+   color:"Gondwana Stone",origin:"UK Import",status:"available",
+   img:"https://images.unsplash.com/photo-1609152816055-5e0e8f5a00e8?w=900&q=80",
+   desc:"Iconic off-road capability meets modern luxury. Air suspension, terrain response system, and premium interior. Near-new UK import with full Land Rover records."},
+
+  {id:11,name:"Toyota Alphard Executive",year:2020,price:"KES 9,100,000",
+   cat:"Luxury",mileage:"26,000 km",trans:"Automatic",engine:"2.5L Hybrid",
+   color:"Graphite",origin:"Japan Import",status:"available",
+   img:"https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=900&q=80",
+   desc:"The ultimate VIP people-mover. Power doors, captain seats, rear entertainment screens, and quiet hybrid drivetrain. Low-km Japan import."},
+
+  {id:12,name:"Mitsubishi Outlander PHEV",year:2021,price:"KES 4,600,000",
+   cat:"SUV",mileage:"19,000 km",trans:"Automatic",engine:"2.4L Plug-in Hybrid",
+   color:"White Diamond",origin:"Japan Import",status:"available",
+   img:"https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=900&q=80",
+   desc:"The green choice without compromise. AWD plug-in hybrid with 60km electric range. Perfect for Nairobi commutes and weekend adventures."}
+];
+let nextId = 13;
+let inbox = [];
+let adminLoggedIn = false;
+
+// ─── PAGE ROUTING ────────────────────────────────────────────────────────────
+function goPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const nl = document.getElementById('nl-'+p);
+  if(nl) nl.classList.add('active');
+  window.scrollTo(0,0);
+  initReveal();
+  if(p==='contact') populateCarSelect();
+}
+
+// Admin is accessible ONLY via URL param ?admin=mater2025
+function checkAdminAccess(){
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('admin')==='mater2025'){
+    // show admin nav link
+    const li = document.createElement('li');
+    li.innerHTML = '<a href="#" onclick="goPage(\'admin\')" id="nl-admin" style="color:var(--red);">⚙ Admin</a>';
+    document.getElementById('nav-links').appendChild(li);
+    return true;
+  }
+  return false;
+}
+
+// ─── RENDER CARS ─────────────────────────────────────────────────────────────
+function renderCars(filter='all'){
+  const grid = document.getElementById('car-grid');
+  const list = filter==='all' ? cars : cars.filter(c=>c.cat===filter);
+  grid.innerHTML = list.map(c=>`
+    <div class="card" onclick="openModal(${c.id})">
+      <div class="card-img-wrap">
+        <img class="card-img" src="${c.img}" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=70'"/>
+        <span class="card-badge ${c.status==='sold'?'badge-sold':'badge-avail'}">${c.status==='sold'?'Sold':'Available'}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-origin">${c.origin} · ${c.cat}</div>
+        <div class="card-name">${c.name}</div>
+        <div class="card-year">${c.year} · ${c.color}</div>
+        <div class="card-specs">
+          <span class="cspec"><span class="cspec-icon">⚙</span>${c.trans}</span>
+          <span class="cspec"><span class="cspec-icon">🛣</span>${c.mileage}</span>
+          <span class="cspec"><span class="cspec-icon">🔧</span>${c.engine}</span>
+        </div>
+        <div class="card-foot">
+          <div class="card-price">${c.price}<small>Financing available</small></div>
+          <button class="card-btn" onclick="event.stopPropagation();goPage('contact');scrollToForm()">Enquire</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCars(cat, btn){
+  if(btn){
+    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+  }
+  renderCars(cat);
+}
+
+// ─── MODAL ───────────────────────────────────────────────────────────────────
+function openModal(id){
+  const c = cars.find(x=>x.id===id); if(!c) return;
+  document.getElementById('m-img').src = c.img;
+  document.getElementById('m-tag').textContent = `${c.origin} · ${c.cat}`;
+  document.getElementById('m-name').textContent = c.name;
+  document.getElementById('m-meta').textContent = `${c.year} · ${c.color} · ${c.status==='sold'?'⛔ Sold':'✅ Available'}`;
+  document.getElementById('m-price').textContent = c.price;
+  document.getElementById('m-specs').innerHTML = [
+    ['Mileage',c.mileage],['Transmission',c.trans],['Engine',c.engine],
+    ['Colour',c.color],['Origin',c.origin],['Status',c.status==='sold'?'Sold':'Available']
+  ].map(([l,v])=>`<div class="mspec"><div class="mspec-lbl">${l}</div><div class="mspec-val">${v}</div></div>`).join('');
+  document.getElementById('m-desc').textContent = c.desc||'';
+  document.getElementById('modal-wrap').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modal-wrap').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ─── ENQUIRY ─────────────────────────────────────────────────────────────────
+function populateCarSelect(){
+  const sel = document.getElementById('eq-car');
+  if(!sel) return;
+  sel.innerHTML = '<option value="">— Select a vehicle (optional) —</option>' +
+    cars.filter(c=>c.status!=='sold').map(c=>`<option>${c.year} ${c.name}</option>`).join('');
+}
+
+function sendEnquiry(e){
+  e.preventDefault();
+  const msg = {
+    id: Date.now(),
+    name: document.getElementById('eq-name').value,
+    phone: document.getElementById('eq-phone').value,
+    email: document.getElementById('eq-email').value || 'N/A',
+    car: document.getElementById('eq-car').value || 'General enquiry',
+    message: document.getElementById('eq-msg').value || '—',
+    time: new Date().toLocaleString('en-KE',{dateStyle:'medium',timeStyle:'short'}),
+    read: false
+  };
+  inbox.unshift(msg);
+  updateInboxBadge();
+  e.target.reset();
+  showToast('✅ Enquiry sent! We\'ll respond shortly.');
+}
+
+function scrollToForm(){
+  setTimeout(()=>{
+    const el = document.getElementById('enquiry-form-anchor');
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  },80);
+}
+
+// ─── ADMIN ───────────────────────────────────────────────────────────────────
+function doAdminLogin(){
+  const u=document.getElementById('al-user').value;
+  const p=document.getElementById('al-pass').value;
+  if(u==='admin'&&p==='mater2025'){
+    adminLoggedIn=true;
+    document.getElementById('admin-login-wall').style.display='none';
+    document.getElementById('admin-dashboard').style.display='block';
+    renderInbox(); renderManage(); updateInboxBadge();
+  } else {
+    document.getElementById('al-err').style.display='block';
+  }
+}
+
+function switchAdminTab(tab,btn){
+  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.atab-panel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('atab-'+tab).classList.add('on');
+  if(tab==='manage') renderManage();
+  if(tab==='inbox'){renderInbox();}
+}
+
+function updateInboxBadge(){
+  const unread = inbox.filter(m=>!m.read).length;
+  const badge = document.getElementById('inbox-badge');
+  if(badge){ badge.textContent=unread; badge.style.display=unread?'':'none';}
+}
+
+function renderInbox(){
+  const el = document.getElementById('inbox-list');
+  if(!el) return;
+  if(inbox.length===0){
+    el.innerHTML='<div class="inbox-empty">📭 No enquiries yet. They\'ll appear here once customers send messages.</div>';
+    return;
+  }
+  el.innerHTML = inbox.map(m=>`
+    <div class="msg-card ${m.read?'':'unread'}" id="msg-${m.id}">
+      <div class="msg-info">
+        <strong>${m.name}</strong>
+        <div class="msg-meta">${m.phone} · ${m.email} · ${m.time}</div>
+        <div class="msg-body">${m.message}</div>
+        ${m.car?`<span class="msg-car">🚗 ${m.car}</span>`:''}
+      </div>
+      <div class="msg-actions">
+        ${!m.read?`<button class="btn-sm" onclick="markRead(${m.id})">Mark Read</button>`:'<span style="font-size:0.7rem;color:var(--gray);">Read ✓</span>'}
+        <button class="btn-sm btn-sm-del" onclick="deleteMsg(${m.id})">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function markRead(id){
+  const m=inbox.find(x=>x.id===id);
+  if(m){m.read=true;renderInbox();updateInboxBadge();}
+}
+function deleteMsg(id){
+  inbox=inbox.filter(x=>x.id!==id);
+  renderInbox();updateInboxBadge();
+}
+
+function addCar(e){
+  e.preventDefault();
+  const car={
+    id:nextId++,
+    name:document.getElementById('af-name').value,
+    year:parseInt(document.getElementById('af-year').value),
+    price:'KES '+document.getElementById('af-price').value,
+    cat:document.getElementById('af-cat').value,
+    mileage:document.getElementById('af-mileage').value||'N/A',
+    trans:document.getElementById('af-trans').value,
+    engine:document.getElementById('af-engine').value||'N/A',
+    color:document.getElementById('af-color').value||'N/A',
+    origin:document.getElementById('af-origin').value,
+    status:document.getElementById('af-status').value,
+    img:document.getElementById('af-img').value||'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=70',
+    desc:document.getElementById('af-desc').value
+  };
+  cars.unshift(car);
+  renderCars('all');
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.fb')[0].classList.add('on');
+  document.getElementById('add-ok').style.display='block';
+  setTimeout(()=>document.getElementById('add-ok').style.display='none',3000);
+  e.target.reset();
+  showToast('✅ Vehicle added to inventory!');
+}
+
+function renderManage(){
+  const el=document.getElementById('manage-list');
+  if(!el) return;
+  el.innerHTML = cars.map(c=>`
+    <div class="manage-row">
+      <img src="${c.img}" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&q=60'"/>
+      <div class="manage-info">
+        <strong>${c.year} ${c.name}</strong>
+        <span>${c.price} · ${c.cat} · ${c.status==='sold'?'⛔ Sold':'✅ Available'}</span>
+      </div>
+      <div class="manage-actions">
+        <button class="btn-sm" onclick="toggleStatus(${c.id})">${c.status==='sold'?'Mark Available':'Mark Sold'}</button>
+        <button class="btn-sm btn-sm-del" onclick="deleteCar(${c.id})">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleStatus(id){
+  const c=cars.find(x=>x.id===id); if(!c) return;
+  c.status=c.status==='sold'?'available':'sold';
+  renderManage(); renderCars('all');
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.fb')[0].classList.add('on');
+  showToast('Status updated!');
+}
+function deleteCar(id){
+  if(!confirm('Delete this vehicle from inventory?')) return;
+  cars=cars.filter(c=>c.id!==id);
+  renderManage(); renderCars('all');
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.fb')[0].classList.add('on');
+  showToast('🗑 Vehicle removed.');
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.style.display='block';
+  setTimeout(()=>t.style.display='none',3500);
+}
+
+// ─── SCROLL REVEAL ───────────────────────────────────────────────────────────
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+  },{threshold:0.08});
+  document.querySelectorAll('.rv:not(.in)').forEach(el=>obs.observe(el));
+}
+
+// ─── CLOSE MODAL ON BACKDROP ─────────────────────────────────────────────────
+document.getElementById('modal-wrap').addEventListener('click',function(e){
+  if(e.target===this) closeModal();
+});
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+checkAdminAccess();
+renderCars();
+populateCarSelect();
+initReveal();
+updateInboxBadge();
+</script>
+</body>
+</html>
