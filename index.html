@@ -1148,34 +1148,71 @@ document.getElementById('af-images').addEventListener('change',function(){
   });
 
 });
-function addCar(e){
+async function addCar(e){
   e.preventDefault();
-  const car={
-    id:nextId++,
-    name:document.getElementById('af-name').value,
-    year:parseInt(document.getElementById('af-year').value),
-    price:'KES '+document.getElementById('af-price').value,
-    cat:document.getElementById('af-cat').value,
-    mileage:document.getElementById('af-mileage').value||'N/A',
-    trans:document.getElementById('af-trans').value,
-    engine:document.getElementById('af-engine').value||'N/A',
-    color:document.getElementById('af-color').value||'N/A',
-    origin:document.getElementById('af-origin').value,
-    status:document.getElementById('af-status').value,
-    images:[...document.getElementById('af-images').files].map(file =>
-  URL.createObjectURL(file)
-),
-    desc:document.getElementById('af-desc').value
+
+  const files = [...document.getElementById('af-images').files];
+
+  let uploadedImages = [];
+
+  for(const file of files){
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("upload_preset", "car-dealership");
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dkiqtno0g/image/upload",
+      {
+        method: "POST",
+        body: formData
+      }
+    );
+
+    const data = await response.json();
+
+    uploadedImages.push(data.secure_url);
+
+  }
+
+  const car = {
+    id: nextId++,
+    name: document.getElementById('af-name').value,
+    year: parseInt(document.getElementById('af-year').value),
+    price: 'KES ' + document.getElementById('af-price').value,
+    cat: document.getElementById('af-cat').value,
+    mileage: document.getElementById('af-mileage').value || 'N/A',
+    trans: document.getElementById('af-trans').value,
+    engine: document.getElementById('af-engine').value || 'N/A',
+    color: document.getElementById('af-color').value || 'N/A',
+    origin: document.getElementById('af-origin').value,
+    status: document.getElementById('af-status').value,
+
+    images: uploadedImages,
+
+    desc: document.getElementById('af-desc').value
   };
+
   cars.unshift(car);
+
   localStorage.setItem('cars', JSON.stringify(cars));
+
   renderCars('all');
+
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.fb')[0].classList.add('on');
+
   document.getElementById('add-ok').style.display='block';
-  setTimeout(()=>document.getElementById('add-ok').style.display='none',3000);
+
+  setTimeout(()=>{
+    document.getElementById('add-ok').style.display='none';
+  },3000);
+
   e.target.reset();
+
   showToast('✅ Vehicle added to inventory!');
+
   updateDashboardStats();
 }
 
