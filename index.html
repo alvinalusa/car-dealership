@@ -1162,7 +1162,9 @@ function addCar(e){
     color:document.getElementById('af-color').value||'N/A',
     origin:document.getElementById('af-origin').value,
     status:document.getElementById('af-status').value,
-    img:document.getElementById('af-img').value||'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=70',
+    images:[...document.getElementById('af-images').files].map(file =>
+  URL.createObjectURL(file)
+),
     desc:document.getElementById('af-desc').value
   };
   cars.unshift(car);
