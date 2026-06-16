@@ -250,7 +250,20 @@ nav{
 }
 .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--red);}
 .fg select option{background:var(--dark2);}
+#image-preview{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:15px;
+}
 
+.preview-img{
+  width:100px;
+  height:80px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid var(--border);
+}
 /* ══════════════════════════════════════════════════
    ADMIN PAGE
 ══════════════════════════════════════════════════ */
@@ -771,7 +784,18 @@ footer{
         </div>
         <div class="fg"><label>Engine</label><input type="text" id="af-engine" placeholder="3.5L V6"/></div>
         <div class="fg"><label>Colour</label><input type="text" id="af-color" placeholder="Pearl White"/></div>
-        <div class="fg full"><label>Image URL</label><input type="url" id="af-img" placeholder="https://images.unsplash.com/…"/></div>
+        <div class="fg full">
+<label>Vehicle Images (JPG, PNG)</label>
+
+<input
+type="file"
+id="af-images"
+accept="image/jpeg,image/png"
+multiple>
+
+<div id="image-preview"></div>
+
+</div>
         <div class="fg full"><label>Description</label><textarea id="af-desc" rows="3" placeholder="Brief vehicle description…"></textarea></div>
         <div class="fg"><label>Origin</label>
           <select id="af-origin"><option>Japan Import</option><option>UK Import</option><option>Brand New</option><option>Local</option></select>
@@ -1084,7 +1108,6 @@ function renderInbox(){
     </div>
   `).join('');
 }
-
 function markRead(id){
   const m=inbox.find(x=>x.id===id);
   if(m){
@@ -1100,7 +1123,31 @@ function deleteMsg(id){
   updateInboxBadge();
   updateDashboardStats();
 }
+document.getElementById('af-images').addEventListener('change',function(){
 
+  const preview = document.getElementById('image-preview');
+
+  preview.innerHTML = '';
+
+  [...this.files].forEach(file=>{
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+      preview.innerHTML += `
+        <img
+        src="${e.target.result}"
+        class="preview-img">
+      `;
+
+    };
+
+    reader.readAsDataURL(file);
+
+  });
+
+});
 function addCar(e){
   e.preventDefault();
   const car={
