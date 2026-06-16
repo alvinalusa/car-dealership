@@ -947,7 +947,7 @@ function renderCars(filter='all'){
   grid.innerHTML = list.map(c=>`
     <div class="card" onclick="openModal(${c.id})">
       <div class="card-img-wrap">
-        <img class="card-img" src="${c.img}" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=70'"/>
+        <img class="card-img" src="${c.images?.[0] || c.img}" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=70'"/>
         <span class="card-badge ${c.status==='sold'?'badge-sold':'badge-avail'}">${c.status==='sold'?'Sold':'Available'}</span>
       </div>
       <div class="card-body">
