@@ -838,7 +838,7 @@ multiple>
 
 <script>
 // ─── CAR DATA ────────────────────────────────────────────────────────────────
-let cars = [
+let cars = JSON.parse(localStorage.getItem('cars')) || [
   {id:1,name:"Toyota Land Cruiser Prado",year:2020,price:"KES 8,500,000",
    cat:"SUV",mileage:"42,000 km",trans:"Automatic",engine:"2.7L 4-Cylinder",
    color:"Pearl White",origin:"Japan Import",status:"available",
@@ -1168,6 +1168,7 @@ function addCar(e){
     desc:document.getElementById('af-desc').value
   };
   cars.unshift(car);
+  localStorage.setItem('cars', JSON.stringify(cars));
   renderCars('all');
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.fb')[0].classList.add('on');
@@ -1199,6 +1200,7 @@ function renderManage(){
 function toggleStatus(id){
   const c=cars.find(x=>x.id===id); if(!c) return;
   c.status=c.status==='sold'?'available':'sold';
+  localStorage.setItem('cars', JSON.stringify(cars));
   renderManage(); renderCars('all');
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.fb')[0].classList.add('on');
@@ -1208,6 +1210,7 @@ function toggleStatus(id){
 function deleteCar(id){
   if(!confirm('Delete this vehicle from inventory?')) return;
   cars=cars.filter(c=>c.id!==id);
+  localStorage.setItem('cars', JSON.stringify(cars));
   renderManage(); renderCars('all');
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.fb')[0].classList.add('on');
