@@ -1183,7 +1183,7 @@ function renderManage(){
   if(!el) return;
   el.innerHTML = cars.map(c=>`
     <div class="manage-row">
-      <img src="${c.img}" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&q=60'"/>
+      <img src="${c.images?.[0] || c.img}" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&q=60'"/>
       <div class="manage-info">
         <strong>${c.year} ${c.name}</strong>
         <span>${c.price} · ${c.cat} · ${c.status==='sold'?'⛔ Sold':'✅ Available'}</span>
