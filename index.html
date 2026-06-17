@@ -962,6 +962,8 @@ let nextId = 13;
 let inbox = JSON.parse(localStorage.getItem('inbox')) || [];
 let adminLoggedIn = false;
 
+let editingCarId = null;
+
 let currentImages = [];
 let currentImageIndex = 0;
 
@@ -1415,6 +1417,8 @@ function editCar(id){
   const c = cars.find(x=>x.id===id);
 
   if(!c) return;
+  
+  editingCarId = id;
 
   document.getElementById('af-name').value = c.name;
 
