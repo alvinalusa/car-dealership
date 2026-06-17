@@ -973,6 +973,7 @@ let inbox = JSON.parse(localStorage.getItem('inbox')) || [];
 let adminLoggedIn = false;
 
 let editingCarId = null;
+let cardImageIndexes = {};
 
 let currentImages = [];
 let currentImageIndex = 0;
@@ -1009,9 +1010,29 @@ function renderCars(filter='all'){
   grid.innerHTML = list.map(c=>`
     <div class="card" onclick="openModal(${c.id})">
       <div class="card-img-wrap">
-        <img class="card-img" src="${c.images?.[0] || c.img}" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=70'"/>
-        <span class="card-badge ${c.status==='sold'?'badge-sold':'badge-avail'}">${c.status==='sold'?'Sold':'Available'}</span>
-      </div>
+
+  <button class="card-arrow left"
+    onclick="event.stopPropagation();prevCardImage(${c.id})">
+    ◀
+  </button>
+
+  <img
+    class="card-img"
+    src="${(c.images || [c.img])[cardImageIndexes[c.id] || 0]}"
+    alt="${c.name}"
+    onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=70'"
+  />
+
+  <button class="card-arrow right"
+    onclick="event.stopPropagation();nextCardImage(${c.id})">
+    ▶
+  </button>
+
+  <span class="card-badge ${c.status==='sold'?'badge-sold':'badge-avail'}">
+    ${c.status==='sold'?'Sold':'Available'}
+  </span>
+
+</div>
       <div class="card-body">
         <div class="card-origin">${c.origin} · ${c.cat}</div>
         <div class="card-name">${c.name}</div>
@@ -1036,6 +1057,35 @@ function filterCars(cat, btn){
     btn.classList.add('on');
   }
   renderCars(cat);
+}
+function nextCardImage(id){
+
+  const car = cars.find(c => c.id === id);
+
+  if(!car) return;
+
+  const images = car.images || [car.img];
+
+  cardImageIndexes[id] =
+    ((cardImageIndexes[id] || 0) + 1) % images.length;
+
+  renderCars();
+}
+
+
+function prevCardImage(id){
+
+  const car = cars.find(c => c.id === id);
+
+  if(!car) return;
+
+  const images = car.images || [car.img];
+
+  cardImageIndexes[id] =
+    ((cardImageIndexes[id] || 0) - 1 + images.length)
+    % images.length;
+
+  renderCars();
 }
 
 // ─── MODAL ───────────────────────────────────────────────────────────────────
