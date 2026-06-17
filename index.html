@@ -1306,7 +1306,7 @@ async function addCar(e){
   }
 
   const car = {
-    id: nextId++,
+     id: editingCarId || nextId++,
     name: document.getElementById('af-name').value,
     year: parseInt(document.getElementById('af-year').value),
     price: 'KES ' + document.getElementById('af-price').value,
@@ -1323,10 +1323,30 @@ async function addCar(e){
     desc: document.getElementById('af-desc').value
   };
 
+  if(editingCarId){
+
+  const index = cars.findIndex(c => c.id === editingCarId);
+
+  // Preserve old images if no new ones were selected
+  if(uploadedImages.length === 0){
+    car.images = cars[index].images;
+  }
+
+  cars[index] = car;
+
+  editingCarId = null;
+
+  showToast('✅ Vehicle updated!');
+
+}else{
+
   cars.unshift(car);
 
-  localStorage.setItem('cars', JSON.stringify(cars));
+  
 
+}
+
+localStorage.setItem('cars', JSON.stringify(cars));
   renderCars('all');
 
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
