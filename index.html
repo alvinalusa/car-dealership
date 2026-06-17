@@ -1344,36 +1344,52 @@ async function addCar(e){
 }
 
 function renderManage(){
-  const el=document.getElementById('manage-list');
+  const el = document.getElementById('manage-list');
   if(!el) return;
+
   el.innerHTML = cars.map(c=>`
     <div class="manage-row">
-      <img src="${c.images?.[0] || c.img}" alt="${c.name}" onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&q=60'"/>
+
+      <img
+        src="${c.images?.[0] || c.img}"
+        alt="${c.name}"
+        onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=400&q=60'"
+      />
+
       <div class="manage-info">
         <strong>${c.year} ${c.name}</strong>
-        <span>${c.price} · ${c.cat} · ${c.status==='sold'?'⛔ Sold':'✅ Available'}</span>
+
+        <span>
+          ${c.price} · ${c.cat} ·
+          ${c.status==='sold'?'⛔ Sold':'✅ Available'}
+        </span>
       </div>
+
       <div class="manage-actions">
 
-  <button class="btn-sm"
-    onclick="editCar(${c.id})">
-    Edit
-  </button>
+        <button class="btn-sm"
+          onclick="editCar(${c.id})">
+          Edit
+        </button>
 
-  <button class="btn-sm"
-    onclick="toggleStatus(${c.id})">
-    ${c.status==='sold'?'Mark Available':'Mark Sold'}
-  </button>
+        <button class="btn-sm"
+          onclick="toggleStatus(${c.id})">
+          ${c.status==='sold'
+            ? 'Mark Available'
+            : 'Mark Sold'}
+        </button>
 
-  <button class="btn-sm btn-sm-del"
-    onclick="deleteCar(${c.id})">
-    Delete
-  </button>
+        <button class="btn-sm btn-sm-del"
+          onclick="deleteCar(${c.id})">
+          Delete
+        </button>
 
-</div>
+      </div>
+
+    </div>
+
   `).join('');
 }
-
 function toggleStatus(id){
   const c=cars.find(x=>x.id===id); if(!c) return;
   c.status=c.status==='sold'?'available':'sold';
