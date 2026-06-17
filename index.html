@@ -411,6 +411,20 @@ footer{
 #gallery-dots{
   display:flex;
   gap:8px;
+  align-items:center;
+}
+
+.gallery-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:#666;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.gallery-dot.active{
+  background:var(--red);
 }
 .modal-body{padding:28px 30px;}
 .modal-body .section-eyebrow{margin-bottom:8px;}
@@ -1020,6 +1034,7 @@ function openModal(id){
 
   document.getElementById('m-img').src =
   currentImages[currentImageIndex];
+  renderGalleryDots();
   document.getElementById('m-tag').textContent = `${c.origin} · ${c.cat}`;
   document.getElementById('m-name').textContent = c.name;
   document.getElementById('m-meta').textContent = `${c.year} · ${c.color} · ${c.status==='sold'?'⛔ Sold':'✅ Available'}`;
@@ -1049,6 +1064,8 @@ function prevImage(){
   document.getElementById('m-img').src =
   currentImages[currentImageIndex];
 
+  renderGalleryDots();
+
 }
 
 function nextImage(){
@@ -1063,6 +1080,32 @@ function nextImage(){
 
   document.getElementById('m-img').src =
   currentImages[currentImageIndex];
+
+  renderGalleryDots();
+
+}
+function renderGalleryDots(){
+
+  const dots = document.getElementById('gallery-dots');
+
+  dots.innerHTML = currentImages.map((img,index)=>`
+
+    <div
+      class="gallery-dot ${index===currentImageIndex?'active':''}"
+      onclick="jumpToImage(${index})">
+    </div>
+
+  `).join('');
+
+}
+function jumpToImage(index){
+
+  currentImageIndex = index;
+
+  document.getElementById('m-img').src =
+  currentImages[currentImageIndex];
+
+  renderGalleryDots();
 
 }
 
