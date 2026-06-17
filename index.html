@@ -948,6 +948,9 @@ let nextId = 13;
 let inbox = [];
 let adminLoggedIn = false;
 
+let currentImages = [];
+let currentImageIndex = 0;
+
 // ─── PAGE ROUTING ────────────────────────────────────────────────────────────
 function goPage(p){
   document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
@@ -1012,7 +1015,11 @@ function filterCars(cat, btn){
 // ─── MODAL ───────────────────────────────────────────────────────────────────
 function openModal(id){
   const c = cars.find(x=>x.id===id); if(!c) return;
-  document.getElementById('m-img').src = c.images?.[0] || c.img;
+    currentImages = c.images || [c.img];
+  currentImageIndex = 0;
+
+  document.getElementById('m-img').src =
+  currentImages[currentImageIndex];
   document.getElementById('m-tag').textContent = `${c.origin} · ${c.cat}`;
   document.getElementById('m-name').textContent = c.name;
   document.getElementById('m-meta').textContent = `${c.year} · ${c.color} · ${c.status==='sold'?'⛔ Sold':'✅ Available'}`;
@@ -1028,6 +1035,35 @@ function openModal(id){
 function closeModal(){
   document.getElementById('modal-wrap').classList.remove('open');
   document.body.style.overflow='';
+}
+function prevImage(){
+
+  if(currentImages.length < 2) return;
+
+  currentImageIndex--;
+
+  if(currentImageIndex < 0){
+    currentImageIndex = currentImages.length - 1;
+  }
+
+  document.getElementById('m-img').src =
+  currentImages[currentImageIndex];
+
+}
+
+function nextImage(){
+
+  if(currentImages.length < 2) return;
+
+  currentImageIndex++;
+
+  if(currentImageIndex >= currentImages.length){
+    currentImageIndex = 0;
+  }
+
+  document.getElementById('m-img').src =
+  currentImages[currentImageIndex];
+
 }
 
 // ─── ENQUIRY ─────────────────────────────────────────────────────────────────
