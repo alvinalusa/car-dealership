@@ -138,6 +138,31 @@ nav{
 }
 .card:hover{transform:translateY(-5px);border-color:var(--red);box-shadow:0 14px 44px rgba(192,57,43,0.18);}
 .card-img-wrap{position:relative;overflow:hidden;}
+.card-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:32px;
+  height:32px;
+  border:none;
+  border-radius:50%;
+  background:rgba(0,0,0,.6);
+  color:white;
+  cursor:pointer;
+  z-index:5;
+}
+
+.card-arrow.left{
+  left:10px;
+}
+
+.card-arrow.right{
+  right:10px;
+}
+
+.card-arrow:hover{
+  background:#d32f2f;
+}
 .card-img{
   width:100%;
   height:240px;
