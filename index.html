@@ -979,7 +979,7 @@ function filterCars(cat, btn){
 // ─── MODAL ───────────────────────────────────────────────────────────────────
 function openModal(id){
   const c = cars.find(x=>x.id===id); if(!c) return;
-  document.getElementById('m-img').src = c.img;
+  document.getElementById('m-img').src = c.images?.[0] || c.img;
   document.getElementById('m-tag').textContent = `${c.origin} · ${c.cat}`;
   document.getElementById('m-name').textContent = c.name;
   document.getElementById('m-meta').textContent = `${c.year} · ${c.color} · ${c.status==='sold'?'⛔ Sold':'✅ Available'}`;
