@@ -1354,10 +1354,23 @@ function renderManage(){
         <span>${c.price} · ${c.cat} · ${c.status==='sold'?'⛔ Sold':'✅ Available'}</span>
       </div>
       <div class="manage-actions">
-        <button class="btn-sm" onclick="toggleStatus(${c.id})">${c.status==='sold'?'Mark Available':'Mark Sold'}</button>
-        <button class="btn-sm btn-sm-del" onclick="deleteCar(${c.id})">Delete</button>
-      </div>
-    </div>
+
+  <button class="btn-sm"
+    onclick="editCar(${c.id})">
+    Edit
+  </button>
+
+  <button class="btn-sm"
+    onclick="toggleStatus(${c.id})">
+    ${c.status==='sold'?'Mark Available':'Mark Sold'}
+  </button>
+
+  <button class="btn-sm btn-sm-del"
+    onclick="deleteCar(${c.id})">
+    Delete
+  </button>
+
+</div>
   `).join('');
 }
 
@@ -1380,6 +1393,47 @@ function deleteCar(id){
   document.querySelectorAll('.fb')[0].classList.add('on');
   showToast('🗑 Vehicle removed.');
   updateDashboardStats();
+}
+function editCar(id){
+
+  const c = cars.find(x=>x.id===id);
+
+  if(!c) return;
+
+  document.getElementById('af-name').value = c.name;
+
+  document.getElementById('af-year').value = c.year;
+
+  document.getElementById('af-price').value =
+  c.price.replace('KES ','');
+
+  document.getElementById('af-mileage').value =
+  c.mileage;
+
+  document.getElementById('af-engine').value =
+  c.engine;
+
+  document.getElementById('af-color').value =
+  c.color;
+
+  document.getElementById('af-desc').value =
+  c.desc;
+
+  document.getElementById('af-origin').value =
+  c.origin;
+
+  document.getElementById('af-status').value =
+  c.status;
+
+  switchAdminTab(
+    'add',
+    document.querySelectorAll('.atab')[0]
+  );
+
+  showToast(
+    '✏ Vehicle loaded into form for editing.'
+  );
+
 }
 
 // ─── TOAST ───────────────────────────────────────────────────────────────────
