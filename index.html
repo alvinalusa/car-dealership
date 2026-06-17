@@ -138,31 +138,7 @@ nav{
 }
 .card:hover{transform:translateY(-5px);border-color:var(--red);box-shadow:0 14px 44px rgba(192,57,43,0.18);}
 .card-img-wrap{position:relative;overflow:hidden;}
-.card-arrow{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:32px;
-  height:32px;
-  border:none;
-  border-radius:50%;
-  background:rgba(0,0,0,.6);
-  color:white;
-  cursor:pointer;
-  z-index:5;
-}
 
-.card-arrow.left{
-  left:10px;
-}
-
-.card-arrow.right{
-  right:10px;
-}
-
-.card-arrow:hover{
-  background:#d32f2f;
-}
 .card-img{
   width:100%;
   height:240px;
@@ -1035,28 +1011,15 @@ function renderCars(filter='all'){
   grid.innerHTML = list.map(c=>`
     <div class="card" onclick="openModal(${c.id})">
       <div class="card-img-wrap">
+  <img class="card-img"
+  src="${c.images?.[0] || c.img}"
+  alt="${c.name}"
+  onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=70'"/>
 
-  <button class="card-arrow left"
-    onclick="event.stopPropagation();prevCardImage(${c.id})">
-    ◀
-  </button>
-
-  <img
-    class="card-img"
-    src="${(c.images || [c.img])[cardImageIndexes[c.id] || 0]}"
-    alt="${c.name}"
-    onerror="this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=70'"
-  />
-
-  <button class="card-arrow right"
-    onclick="event.stopPropagation();nextCardImage(${c.id})">
-    ▶
-  </button>
-
-  <span class="card-badge ${c.status==='sold'?'badge-sold':'badge-avail'}">
-    ${c.status==='sold'?'Sold':'Available'}
+  <span class="card-badge
+  ${c.status==='sold'?'badge-sold':'badge-avail'}">
+  ${c.status==='sold'?'Sold':'Available'}
   </span>
-
 </div>
       <div class="card-body">
         <div class="card-origin">${c.origin} · ${c.cat}</div>
