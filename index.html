@@ -959,7 +959,7 @@ let cars = JSON.parse(localStorage.getItem('cars')) || [
    desc:"The green choice without compromise. AWD plug-in hybrid with 60km electric range. Perfect for Nairobi commutes and weekend adventures."}
 ];
 let nextId = 13;
-let inbox = [];
+let inbox = JSON.parse(localStorage.getItem('inbox')) || [];
 let adminLoggedIn = false;
 
 let currentImages = [];
@@ -1130,7 +1130,14 @@ function sendEnquiry(e){
     read: false
   };
   inbox.unshift(msg);
-  updateInboxBadge();
+
+localStorage.setItem(
+  'inbox',
+  JSON.stringify(inbox)
+);
+
+updateInboxBadge();
+updateDashboardStats();
   e.target.reset();
   showToast('✅ Enquiry sent! We\'ll respond shortly.');
 }
@@ -1224,6 +1231,10 @@ function markRead(id){
   const m=inbox.find(x=>x.id===id);
   if(m){
     m.read=true;
+    localStorage.setItem(
+  'inbox',
+  JSON.stringify(inbox)
+);
     renderInbox();
     updateInboxBadge();
     updateDashboardStats();
@@ -1231,6 +1242,10 @@ function markRead(id){
 }
 function deleteMsg(id){
   inbox=inbox.filter(x=>x.id!==id);
+  localStorage.setItem(
+    'inbox',
+    JSON.stringify(inbox)
+  );
   renderInbox();
   updateInboxBadge();
   updateDashboardStats();
