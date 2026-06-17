@@ -127,6 +127,27 @@ nav{
   border-radius:2px;transition:all 0.2s;font-family:var(--font-body);
 }
 .fb.on,.fb:hover{border-color:var(--red);color:var(--red);background:rgba(192,57,43,0.08);}
+.search-box{
+  margin-bottom:20px;
+}
+
+.search-box input{
+  width:100%;
+  max-width:500px;
+  padding:14px 18px;
+  border:1px solid var(--border-dim);
+  background:var(--dark3);
+  color:var(--white);
+  border-radius:6px;
+  font-size:0.9rem;
+  font-family:var(--font-body);
+  transition:border-color .2s;
+}
+
+.search-box input:focus{
+  outline:none;
+  border-color:var(--red);
+}
 
 /* ── CAR GRID ────────────────────────────────────── */
 .car-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;}
@@ -522,6 +543,13 @@ footer{
       <h2 class="section-title">Current Inventory</h2>
       <p class="section-sub">Handpicked imports from Japan &amp; UK, inspected to the highest standard before reaching our showroom.</p>
     </div>
+    <div class="search-box">
+  <input
+    type="text"
+    id="car-search"
+    placeholder="🔍 Search vehicles..."
+    onkeyup="searchCars()">
+</div>
     <div class="filter-bar rv">
       <button class="fb on" onclick="filterCars('all',this)">All</button>
       <button class="fb" onclick="filterCars('SUV',this)">SUV</button>
