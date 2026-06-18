@@ -1667,12 +1667,35 @@ document.getElementById('modal-wrap').addEventListener('click',function(e){
   if(e.target===this) closeModal();
 });
 
+async function testFirebase(){
+
+  try{
+
+    await db.collection('test').add({
+      message:'Firebase connection successful',
+      created:new Date()
+    });
+
+    console.log('✅ Firestore connected successfully');
+
+  }
+
+  catch(err){
+
+    console.error('❌ Firestore error:', err);
+
+  }
+
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 checkAdminAccess();
 renderCars();
 populateCarSelect();
 initReveal();
 updateInboxBadge();
+
+testFirebase();
 </script>
 </body>
 </html>
