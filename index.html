@@ -1610,7 +1610,6 @@ function toggleStatus(id){
   const c=cars.find(x=>x.id===id); if(!c) return;
   c.status=c.status==='sold'?'available':'sold';
   localStorage.setItem('cars', JSON.stringify(cars));
-  await saveCarsToFirestore();
   renderManage(); renderCars('all');
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.fb')[0].classList.add('on');
@@ -1621,8 +1620,7 @@ function deleteCar(id){
   if(!confirm('Delete this vehicle from inventory?')) return;
   cars=cars.filter(c=>c.id!==id);
   localStorage.setItem('cars', JSON.stringify(cars));
-  await saveCarsToFirestore();
-  renderManage(); renderCars('all');
+   renderManage(); renderCars('all');
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.fb')[0].classList.add('on');
   showToast('🗑 Vehicle removed.');
