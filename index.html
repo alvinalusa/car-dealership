@@ -1710,15 +1710,45 @@ async function testFirebase(){
   }
 
 }
+async function loadCarsFromFirestore(){
 
+  try{
+
+    const doc = await db.collection('inventory')
+      .doc('cars')
+      .get();
+
+    if(doc.exists){
+
+      cars = doc.data().cars || [];
+
+      console.log('✅ Cars loaded from Firestore');
+
+    }
+
+    renderCars(currentFilter);
+
+    populateCarSelect();
+
+  }
+
+  catch(err){
+
+    console.error('❌ Error loading cars:', err);
+
+  }
+
+}
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 checkAdminAccess();
-renderCars();
-populateCarSelect();
+
+loadCarsFromFirestore();
+
 initReveal();
+
 updateInboxBadge();
 
-testFirebase();
+
 </script>
 </body>
 </html>
