@@ -948,8 +948,26 @@ multiple>
 </div>
 
 <div id="toast"></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyCDIhgN5JOzVRXWc1OgA-XPurVGfQ7GOzw",
+  authDomain: "car-dealership-31c7f.firebaseapp.com",
+  projectId: "car-dealership-31c7f",
+  storageBucket: "car-dealership-31c7f.firebasestorage.app",
+  messagingSenderId: "235957505311",
+  appId: "1:235957505311:web:e5f714dd1bbc9c8fff342a",
+  measurementId: "G-5FV91T9XBL"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
 // ─── CAR DATA ────────────────────────────────────────────────────────────────
 let cars = JSON.parse(localStorage.getItem('cars')) || [
   {id:1,name:"Toyota Land Cruiser Prado",year:2020,price:"KES 8,500,000",
