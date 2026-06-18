@@ -1003,6 +1003,9 @@ let nextId = 13;
 let inbox = JSON.parse(localStorage.getItem('inbox')) || [];
 let adminLoggedIn = false;
 
+let currentFilter = 'all';
+let currentSearch = '';
+
 let editingCarId = null;
 let cardImageIndexes = {};
 
@@ -1035,9 +1038,44 @@ function checkAdminAccess(){
 }
 
 // ─── RENDER CARS ─────────────────────────────────────────────────────────────
-function renderCars(filter='all'){
+function renderCars(filter=currentFilter){
+
+  currentFilter = filter;
+
   const grid = document.getElementById('car-grid');
-  const list = filter==='all' ? cars : cars.filter(c=>c.cat===filter);
+
+  let list =
+    filter === 'all'
+      ? cars
+      : cars.filter(c=>c.cat===filter);
+
+  if(currentSearch){
+
+    list = list.filter(c =>
+
+      c.name.toLowerCase().includes(currentSearch) ||
+
+      c.cat.toLowerCase().includes(currentSearch) ||
+
+      c.origin.toLowerCase().includes(currentSearch) ||
+
+      c.year.toString().includes(currentSearch)
+
+    );
+
+  }
+
+  if(!list.length){
+
+    grid.innerHTML = `
+      <div class="no-results">
+        No vehicles found.
+      </div>
+    `;
+
+    return;
+  }
+
   grid.innerHTML = list.map(c=>`
     <div class="card" onclick="openModal(${c.id})">
       <div class="card-img-wrap">
@@ -1075,6 +1113,18 @@ function filterCars(cat, btn){
     btn.classList.add('on');
   }
   renderCars(cat);
+}
+
+function searchCars(){
+
+  currentSearch =
+    document.getElementById('car-search')
+    .value
+    .trim()
+    .toLowerCase();
+
+  renderCars();
+
 }
 function nextCardImage(id){
 
