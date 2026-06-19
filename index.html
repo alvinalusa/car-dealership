@@ -1633,9 +1633,26 @@ async function toggleStatus(id){
 }
 async function deleteCar(id){
 
+   console.log("Delete called for ID:", id);
+
+  console.log("Before delete:",
+    cars.map(c => ({
+      id: c.id,
+      name: c.name
+    }))
+  );
+
   if(!confirm('Delete this vehicle from inventory?')) return;
 
+
   cars = cars.filter(c=>c.id!==id);
+
+  console.log("After delete:",
+  cars.map(c => ({
+    id: c.id,
+    name: c.name
+  }))
+);
 
   localStorage.setItem('cars', JSON.stringify(cars));
 
