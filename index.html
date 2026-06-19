@@ -1763,11 +1763,17 @@ async function loadCarsFromFirestore(){
 
     if(doc.exists){
 
-      cars = doc.data().cars || [];
+  cars = doc.data().cars || [];
 
-      console.log('✅ Cars loaded from Firestore');
+  nextId = Math.max(
+    ...cars.map(c => Number(c.id) || 0),
+    0
+  ) + 1;
 
-    }
+  console.log('✅ Cars loaded from Firestore');
+  console.log('Next ID:', nextId);
+
+}
 
     renderCars(currentFilter);
 
