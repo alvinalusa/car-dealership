@@ -635,10 +635,10 @@ footer{
 
 </nav>
   <ul class="nav-links" id="nav-links">
-    <li><a href="#" onclick="goPage('home')" id="nl-home" class="active">Home</a></li>
-    <li><a href="#" onclick="goPage('about')" id="nl-about">About</a></li>
-    <li><a href="#" onclick="goPage('contact')" id="nl-contact">Contact</a></li>
-    <li><a href="#" onclick="goPage('contact');scrollToForm()" id="nl-enquire" class="nav-cta">Enquire Now</a></li>
+    <li><a href="#" onclick="goPage('home');closeMenu()" id="nl-home" class="active">Home</a></li>
+    <li><a href="#" onclick="goPage('about');closeMenu()" id="nl-about">About</a></li>
+    <li><a href="#" onclick="goPage('contact');closeMenu()" id="nl-contact">Contact</a></li>
+    <li><a href="#" onclick="goPage('contact');scrollToForm();closeMenu()" id="nl-enquire" class="nav-cta">Enquire Now</a></li>
   </ul>
 </nav>
 
@@ -1851,6 +1851,13 @@ function toggleMenu(){
   document
     .getElementById('nav-links')
     .classList.toggle('open');
+
+}
+function closeMenu(){
+
+  document
+    .getElementById('nav-links')
+    .classList.remove('open');
 
 }
 
