@@ -486,6 +486,47 @@ footer{
 /* ── REVEAL ──────────────────────────────────────── */
 .rv{opacity:0;transform:translateY(18px);transition:opacity 0.55s,transform 0.55s;}
 .rv.in{opacity:1;transform:none;}
+.menu-btn{
+
+  display:none;
+
+  background:none;
+
+  border:none;
+
+  color:white;
+
+  font-size:28px;
+
+  cursor:pointer;
+
+}
+
+@media(max-width:768px){
+
+  .menu-btn{
+
+    display:block;
+
+  }
+
+  .nav-links{
+
+    display:none;
+
+    flex-direction:column;
+
+    width:100%;
+
+  }
+
+  .nav-links.open{
+
+    display:flex;
+
+  }
+
+}
 
 /*══════════ MOBILE RESPONSIVENESS ══════════*/
 @media screen and (max-width:768px){
@@ -524,6 +565,35 @@ footer{
       <div class="brand-tagline">Dealership · Est. 1989</div>
     </div>
   </div>
+   <!-- NEW BUTTON -->
+  <button class="menu-btn"
+          onclick="toggleMenu()">
+
+    ☰
+
+  </button>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#" onclick="goPage('home')" id="nl-home" class="active">Home</a></li>
+
+    <li><a href="#" onclick="goPage('about')" id="nl-about">About</a></li>
+
+    <li><a href="#" onclick="goPage('contact')" id="nl-contact">Contact</a></li>
+
+    <li>
+      <a href="#"
+         onclick="goPage('contact');scrollToForm()"
+         id="nl-enquire"
+         class="nav-cta">
+
+        Enquire Now
+
+      </a>
+    </li>
+
+  </ul>
+
+</nav>
   <ul class="nav-links" id="nav-links">
     <li><a href="#" onclick="goPage('home')" id="nl-home" class="active">Home</a></li>
     <li><a href="#" onclick="goPage('about')" id="nl-about">About</a></li>
@@ -1735,6 +1805,14 @@ function initReveal(){
     entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
   },{threshold:0.08});
   document.querySelectorAll('.rv:not(.in)').forEach(el=>obs.observe(el));
+}
+
+function toggleMenu(){
+
+  document
+    .getElementById('nav-links')
+    .classList.toggle('open');
+
 }
 
 // ─── CLOSE MODAL ON BACKDROP ─────────────────────────────────────────────────
