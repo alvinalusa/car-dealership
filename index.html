@@ -1077,6 +1077,28 @@ async function saveCarsToFirestore(){
 
 }
 
+async function saveInboxToFirestore(){
+
+  try{
+
+    await db.collection('messages')
+      .doc('inbox')
+      .set({
+        inbox: inbox
+      });
+
+    console.log('✅ Inbox saved to Firestore');
+
+  }
+
+  catch(err){
+
+    console.error('❌ Error saving inbox:', err);
+
+  }
+
+}
+
 // ─── PAGE ROUTING ────────────────────────────────────────────────────────────
 function goPage(p){
   document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
@@ -1312,7 +1334,7 @@ function populateCarSelect(){
     cars.filter(c=>c.status!=='sold').map(c=>`<option>${c.year} ${c.name}</option>`).join('');
 }
 
-function sendEnquiry(e){
+async function sendEnquiry(e){
   e.preventDefault();
   const msg = {
     id: Date.now(),
@@ -1330,6 +1352,9 @@ localStorage.setItem(
   'inbox',
   JSON.stringify(inbox)
 );
+
+await saveInboxToFirestore();
+
 
 updateInboxBadge();
 updateDashboardStats();
