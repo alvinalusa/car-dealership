@@ -1606,25 +1606,51 @@ function renderManage(){
 
   `).join('');
 }
-function toggleStatus(id){
-  const c=cars.find(x=>x.id===id); if(!c) return;
-  c.status=c.status==='sold'?'available':'sold';
+async function toggleStatus(id){
+
+  const c = cars.find(x=>x.id===id);
+
+  if(!c) return;
+
+  c.status = c.status==='sold'
+    ? 'available'
+    : 'sold';
+
   localStorage.setItem('cars', JSON.stringify(cars));
-  renderManage(); renderCars('all');
+
+  await saveCarsToFirestore();
+
+  renderManage();
+  renderCars('all');
+
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.fb')[0].classList.add('on');
+
   showToast('Status updated!');
+
   updateDashboardStats();
+
 }
-function deleteCar(id){
+async function deleteCar(id){
+
   if(!confirm('Delete this vehicle from inventory?')) return;
-  cars=cars.filter(c=>c.id!==id);
+
+  cars = cars.filter(c=>c.id!==id);
+
   localStorage.setItem('cars', JSON.stringify(cars));
-   renderManage(); renderCars('all');
+
+  await saveCarsToFirestore();
+
+  renderManage();
+  renderCars('all');
+
   document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.fb')[0].classList.add('on');
+
   showToast('🗑 Vehicle removed.');
+
   updateDashboardStats();
+
 }
 function editCar(id){
 
