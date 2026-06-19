@@ -1797,14 +1797,45 @@ async function loadCarsFromFirestore(){
   }
 
 }
+async function loadInboxFromFirestore(){
+
+  try{
+
+    const doc = await db.collection('messages')
+      .doc('inbox')
+      .get();
+
+    if(doc.exists){
+
+      inbox = doc.data().inbox || [];
+
+      console.log('✅ Inbox loaded from Firestore');
+
+    }
+
+    updateInboxBadge();
+
+    updateDashboardStats();
+
+  }
+
+  catch(err){
+
+    console.error('❌ Error loading inbox:', err);
+
+  }
+
+}
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 checkAdminAccess();
 
 loadCarsFromFirestore();
 
+loadInboxFromFirestore();
+
 initReveal();
 
-updateInboxBadge();
+
 
 
 </script>
