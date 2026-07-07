@@ -1265,11 +1265,13 @@ window.addEventListener('popstate', function(event){
 
   if(modal && modal.classList.contains('open')){
 
-    closeModal();
+    modal.classList.remove('open');
+
+    document.body.style.overflow='';
 
     return;
 
-  }
+}
 
   if(event.state && event.state.page){
 
@@ -1436,12 +1438,6 @@ function closeModal(){
     .classList.remove('open');
 
   document.body.style.overflow='';
-
-  if(location.hash.startsWith('#car-')){
-
-    history.back();
-
-  }
 
 }
 function prevImage(){
