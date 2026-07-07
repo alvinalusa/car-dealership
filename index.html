@@ -1210,16 +1210,40 @@ async function saveInboxToFirestore(){
 }
 
 // ─── PAGE ROUTING ────────────────────────────────────────────────────────────
-function goPage(p){
+function goPage(p, addHistory = true){
+
   closeMenu();
-  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  const nl = document.getElementById('nl-'+p);
+
+  document.querySelectorAll('.page')
+    .forEach(el => el.classList.remove('active'));
+
+  document.getElementById('page-' + p)
+    .classList.add('active');
+
+  document.querySelectorAll('.nav-links a')
+    .forEach(a => a.classList.remove('active'));
+
+  const nl = document.getElementById('nl-' + p);
+
   if(nl) nl.classList.add('active');
+
   window.scrollTo(0,0);
+
   initReveal();
-  if(p==='contact') populateCarSelect();
+
+  if(p === 'contact')
+    populateCarSelect();
+
+  if(addHistory){
+
+    history.pushState(
+      {page:p},
+      '',
+      '#' + p
+    );
+
+  }
+
 }
 
 // Admin is accessible ONLY via URL param ?admin=mater2025
@@ -1234,6 +1258,19 @@ function checkAdminAccess(){
   }
   return false;
 }
+window.addEventListener('popstate', function(event){
+
+  if(event.state && event.state.page){
+
+    goPage(event.state.page, false);
+
+  }else{
+
+    goPage('home', false);
+
+  }
+
+});
 
 // ─── RENDER CARS ─────────────────────────────────────────────────────────────
 function renderCars(filter=currentFilter){
@@ -1952,6 +1989,11 @@ async function loadInboxFromFirestore(){
 
 }
 // ─── INIT ─────────────────────────────────────────────────────────────────────
+history.replaceState(
+  {page:'home'},
+  '',
+  '#home'
+);
 checkAdminAccess();
 
 loadCarsFromFirestore();
