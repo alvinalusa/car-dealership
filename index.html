@@ -1258,32 +1258,32 @@ function checkAdminAccess(){
   }
   return false;
 }
-window.addEventListener('popstate', function(event){
+// window.addEventListener('popstate', function(event){
 
-  // If a vehicle modal is open, close it first
-  const modal = document.getElementById('modal-wrap');
+//   // If a vehicle modal is open, close it first
+//   const modal = document.getElementById('modal-wrap');
 
-  if(modal && modal.classList.contains('open')){
+//   if(modal && modal.classList.contains('open')){
 
-    modal.classList.remove('open');
+//     modal.classList.remove('open');
 
-    document.body.style.overflow='';
+//     document.body.style.overflow='';
 
-    return;
+//     return;
 
-}
+// }
 
-  if(event.state && event.state.page){
+//   if(event.state && event.state.page){
 
-    goPage(event.state.page, false);
+//     goPage(event.state.page, false);
 
-  }else{
+//   }else{
 
-    goPage('home', false);
+//     goPage('home', false);
 
-  }
+//   }
 
-});
+// });
 // ─── RENDER CARS ─────────────────────────────────────────────────────────────
 function renderCars(filter=currentFilter){
 
