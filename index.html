@@ -1260,6 +1260,17 @@ function checkAdminAccess(){
 }
 window.addEventListener('popstate', function(event){
 
+  // If a vehicle modal is open, close it first
+  const modal = document.getElementById('modal-wrap');
+
+  if(modal && modal.classList.contains('open')){
+
+    closeModal();
+
+    return;
+
+  }
+
   if(event.state && event.state.page){
 
     goPage(event.state.page, false);
@@ -1271,7 +1282,6 @@ window.addEventListener('popstate', function(event){
   }
 
 });
-
 // ─── RENDER CARS ─────────────────────────────────────────────────────────────
 function renderCars(filter=currentFilter){
 
@@ -1393,6 +1403,14 @@ function prevCardImage(id){
 
 // ─── MODAL ───────────────────────────────────────────────────────────────────
 function openModal(id){
+history.pushState(
+  {
+    modal: true,
+    carId: id
+  },
+  '',
+  '#car-' + id
+);
   const c = cars.find(x=>x.id===id); if(!c) return;
     currentImages = c.images || [c.img];
   currentImageIndex = 0;
@@ -1413,8 +1431,18 @@ function openModal(id){
   document.body.style.overflow='hidden';
 }
 function closeModal(){
-  document.getElementById('modal-wrap').classList.remove('open');
+
+  document.getElementById('modal-wrap')
+    .classList.remove('open');
+
   document.body.style.overflow='';
+
+  if(location.hash.startsWith('#car-')){
+
+    history.back();
+
+  }
+
 }
 function prevImage(){
 
